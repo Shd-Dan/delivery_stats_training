@@ -1,0 +1,33 @@
+{% extends "payout_tracking/layout.html" %}
+
+{% block title %}
+    Add new delivery data
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2 class="text-center mt-4">Add New Delivery</h2>
+
+    <div class="card shadow-lg mt-3">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token%}
+                <div class="mb-3">
+                    <label>Date</label>
+                    {{form.date}}
+                </div>
+                <div class="mb-3">
+                    <label>Delivery ID</label>
+                    {{form.delivery_id}}
+                </div>
+                <div class="mb-3">
+                    <label>Sum Payout</label>
+                    {{form.sum_payout}}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "payout_tracking/layout.html" %}
+
+{% block title %}
+    Home - Delivery Payouts
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2 class="text-center mt-4">Delivery Payout Tracker</h2>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'add_delivery' %}" class="btn btn-success btn-lg">➕ Add New Delivery</a>
+    </div>
+
+    <div class="card shadow-lg mt-3">
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-info">
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Delivery ID</th>
+                        <th>Payout (₸)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for delivery in deliveries %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ delivery.date }}</td>
+                        <td>{{ delivery.delivery_id }}</td>
+                        <td>{{ delivery.sum_payout }} KZT</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">No deliveries recorded yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
