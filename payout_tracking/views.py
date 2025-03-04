@@ -1,4 +1,5 @@
 # Create your views here.
+from django.db.models.aggregates import Avg, Max, Min, Sum, Count, Value
 from django.shortcuts import render, redirect
 
 from .forms import DeliveryForm
@@ -17,9 +18,22 @@ def index(request):
     elif sort_param == 'sum_payout_desc':
         deliveries = Delivery.objects.order_by('-sum_payout')
     else:
-        deliveries = Delivery.objects.all()  # Get all deliveries from the database
+        deliveries = Delivery.objects.annotate(
+            true_bool=Value(True)
+        )  # Get all deliveries from the database
 
-    return render(request, 'payout_tracking/index.html', context={'deliveries': deliveries})
+    agg = Delivery.objects.all().aggregate(
+        Avg('sum_payout'),
+        Max('sum_payout'),
+        Min('sum_payout'),
+        Sum('sum_payout'),
+        Count('sum_payout')
+    )
+
+    return render(request, 'payout_tracking/index.html',
+                  context={'deliveries': deliveries,
+                           'agg': agg}
+                  )
 
 
 def add_delivery(request):
