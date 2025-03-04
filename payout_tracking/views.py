@@ -6,11 +6,20 @@ from .models import Delivery
 
 
 def index(request):
-    deliveries = Delivery.objects.all()  # Get all deliveries from the database
-    data = {
-        "deliveries": deliveries
-    }
-    return render(request, 'payout_tracking/index.html', context=data)
+    sort_param = request.GET.get('sort', '')
+
+    if sort_param == 'date_asc':
+        deliveries = Delivery.objects.order_by('date')
+    elif sort_param == 'date_desc':
+        deliveries = Delivery.objects.order_by('-date')
+    elif sort_param == 'sum_payout_asc':
+        deliveries = Delivery.objects.order_by('sum_payout')
+    elif sort_param == 'sum_payout_desc':
+        deliveries = Delivery.objects.order_by('-sum_payout')
+    else:
+        deliveries = Delivery.objects.all()  # Get all deliveries from the database
+
+    return render(request, 'payout_tracking/index.html', context={'deliveries': deliveries})
 
 
 def add_delivery(request):
