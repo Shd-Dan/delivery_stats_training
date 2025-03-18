@@ -24,12 +24,6 @@ Home - Delivery Payouts
                         <a href="?sort=date_desc" class="text-decoration-none text-dark">↓</a>
                     </th>
                     <th>Delivery ID</th>
-                    <th>
-                        Payout (₸)
-                        <a href="?sort=sum_payout_asc" class="text-decoration-none text-dark">↑</a>
-                        <a href="?sort=sum_payout_desc" class="text-decoration-none text-dark">↓</a>
-                    </th>
-                </tr>
                 </thead>
                 <tbody>
                 {% for delivery in deliveries %}
@@ -37,7 +31,6 @@ Home - Delivery Payouts
                     <td>{{ forloop.counter }}</td>
                     <td>{{ delivery.date }}</td>
                     <td>{{ delivery.delivery_id }}</td>
-                    <td>{{ delivery.sum_payout }} KZT</td>
                 </tr>
                 {% empty %}
                 <tr>

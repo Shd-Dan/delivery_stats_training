@@ -22,6 +22,7 @@ def index(request):
             true_bool=Value(True)
         )  # Get all deliveries from the database
 
+
     agg = Delivery.objects.all().aggregate(
         Avg('sum_payout'),
         Max('sum_payout'),
