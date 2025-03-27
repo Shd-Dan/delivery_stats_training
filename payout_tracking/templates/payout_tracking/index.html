@@ -30,7 +30,11 @@ Home - Delivery Payouts
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ delivery.date }}</td>
-                    <td>{{ delivery.delivery_id }}</td>
+                    <td>
+                        <a href="{% url 'delivery_details' delivery_id=delivery.delivery_id %}">
+                            {{ delivery.delivery_id }}
+                        </a>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>

@@ -1,0 +1,23 @@
+{% extends "payout_tracking/layout.html" %}
+
+{% block title %}
+    Delivery Details - Delivery Payouts
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Delivery Details</h2>
+            <p><strong>Date:</strong> {{ delivery.date }}</p>
+            <p><strong>Delivery ID:</strong> {{ delivery.delivery_id }}</p>
+            <p><strong>Payout:</strong> {{ delivery.sum_payout }} KZT</p>
+            <p><strong>Aggregator:</strong> {{ delivery.delivery_aggregator }}</p>
+            <p><strong>Items:</strong> {{ delivery.delivery_items }}</p>
+            <p><strong>Client:</strong> {{ delivery.client }}</p>
+            <p>
+                <strong>Couriers:</strong>
+                <a href="{% url 'courier_details' courier=delivery.couriers.first %}">
+                    {{ delivery.couriers.all|join:" " }}</a>
+            </p>
+        <a href="{% url 'index' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+{% endblock %}

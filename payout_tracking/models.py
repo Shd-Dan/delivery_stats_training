@@ -4,6 +4,13 @@ from django.db.models import ManyToManyField
 
 # Create your models here.
 
+class BagColor(models.Model):
+    bag_color = models.CharField(max_length=20)
+    bag_number = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.bag_color} - {self.bag_number}"
+
 class Client(models.Model):
     client_email = models.EmailField(blank=True)
     client_name = models.CharField(max_length=100)
@@ -23,9 +30,10 @@ class Courier(models.Model):
     courier_first_name = models.CharField(max_length=100)
     courier_last_name = models.CharField(max_length=100)
     courier_gender = models.CharField(max_length=7, choices=GENDER_CHOICES, default=MALE)
+    bag = models.OneToOneField(BagColor, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return f"Courier {self.courier_first_name} {self.courier_last_name}"
+        return f"{self.courier_first_name} {self.courier_last_name}"
 
 
 class Delivery(models.Model):
@@ -49,12 +57,12 @@ class Delivery(models.Model):
     delivery_aggregator = models.CharField(
         max_length=10,
         choices=DELIVERY_AGGREGATORS,
-        default='wolt')
+        default='Wolt')
     delivery_items = models.CharField(max_length=50, blank=True)
     client = models.ForeignKey(Client, on_delete=models.PROTECT, null=True)
 
     # Many-to-Many relationship with Courier
-    couriers = ManyToManyField(Courier)
+    couriers = ManyToManyField(Courier, related_name='deliveries_related')
 
     def __str__(self):
         return f"Delivery {self.delivery_id} - {self.date} - {self.sum_payout}"

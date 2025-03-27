@@ -3,7 +3,7 @@ from django.db.models.aggregates import Avg, Max, Min, Sum, Count, Value
 from django.shortcuts import render, redirect
 
 from .forms import DeliveryForm
-from .models import Delivery
+from .models import Delivery, Courier
 
 
 def index(request):
@@ -47,3 +47,15 @@ def add_delivery(request):
         form = DeliveryForm()
 
     return render(request, 'payout_tracking/add_delivery.html', {'form': form})
+
+
+def delivery_details(request, delivery_id):
+    delivery = Delivery.objects.get(delivery_id=delivery_id)
+    return render(request, 'payout_tracking/delivery_details.html', {'delivery': delivery})
+
+
+def courier_details(request, courier):
+    first_name = courier.split()[0]
+    courier_get = Courier.objects.get(courier_first_name=first_name)
+    return render(request, 'payout_tracking/courier_details.html', {'courier': courier_get})
+
