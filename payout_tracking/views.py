@@ -59,3 +59,6 @@ def courier_details(request, courier):
     courier_get = Courier.objects.get(courier_first_name=first_name)
     return render(request, 'payout_tracking/courier_details.html', {'courier': courier_get})
 
+
+def feedback(request):
+    return render(request, 'payout_tracking/feedback.html')

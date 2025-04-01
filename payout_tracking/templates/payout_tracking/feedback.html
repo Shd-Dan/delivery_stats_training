@@ -1,0 +1,63 @@
+{% extends "payout_tracking/layout.html" %}
+
+{% block title %}
+   Client's Feedback
+{% endblock %}
+
+{% block body %}
+    <style>
+        .feedback-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+
+    <div class="feedback-container">
+        <h2>Feedback on Delivery</h2>
+        <form>
+            <label for="client_name">Client Name:</label>
+            <input type="text" id="client_name" name="client_name" required>
+
+            <label for="feedback">Feedback:</label>
+            <textarea name="feedback" id="feedback" placeholder="Write your feedback here" required></textarea>
+
+            <button type="submit">Send Feedback</button>
+        </form>
+    </div>
+{% endblock %}
