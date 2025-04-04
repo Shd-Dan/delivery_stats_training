@@ -2,7 +2,7 @@
 from django.db.models.aggregates import Avg, Max, Min, Sum, Count, Value
 from django.shortcuts import render, redirect
 
-from .forms import DeliveryForm
+from .forms import DeliveryForm, FeedbackForm
 from .models import Delivery, Courier
 
 
@@ -61,4 +61,10 @@ def courier_details(request, courier):
 
 
 def feedback(request):
-    return render(request, 'payout_tracking/feedback.html')
+    if request.method == "POST":
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    form = FeedbackForm()
+    return render(request, 'payout_tracking/feedback.html', context={'form': form})
