@@ -1,8 +1,16 @@
 from django.db import models
-from django.db.models import ManyToManyField
+from django.db.models import ManyToManyField, CharField
+from django.core.validators import MinLengthValidator
 
 
 # Create your models here.
+
+class Feedback(models.Model):
+    name = models.CharField(max_length=40, validators=[MinLengthValidator(3, message='psssst!')])
+    feedback = models.TextField()
+    rating = models.PositiveIntegerField()
+
+
 
 class BagColor(models.Model):
     bag_color = models.CharField(max_length=20)

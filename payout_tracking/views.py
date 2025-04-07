@@ -1,9 +1,23 @@
 # Create your views here.
 from django.db.models.aggregates import Avg, Max, Min, Sum, Count, Value
 from django.shortcuts import render, redirect
+from django.views import View
 
 from .forms import DeliveryForm, FeedbackForm
-from .models import Delivery, Courier
+from .models import Delivery, Courier, Feedback
+
+
+class FeedbackView(View):
+    def get(self, request):
+        form = FeedbackForm()
+        return render(request, 'payout_tracking/feedback.html', {'form': form})
+
+    def post(self, request):
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'payout_tracking/feedback.html', {'form': form})
+        return render(request, 'payout_tracking/feedback.html', {'form': form})
 
 
 def index(request):
@@ -65,6 +79,18 @@ def feedback(request):
         form = FeedbackForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
     form = FeedbackForm()
     return render(request, 'payout_tracking/feedback.html', context={'form': form})
+
+
+def update_feedback(request, feedback_id):
+    feed = Feedback.objects.get(id=feedback_id)
+    if request.method == "POST":
+        form = FeedbackForm(request.POST, instance=feed)
+        if form.is_valid():
+            form.save()
+            return redirect('feedback')
+    else:
+        form = FeedbackForm(instance=feed)
+    return render(request, 'payout_tracking/feedback.html', context={'form': form})
+

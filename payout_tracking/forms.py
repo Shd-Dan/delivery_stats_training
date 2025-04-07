@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Delivery
+from .models import Delivery, Feedback
 
 
 class DeliveryForm(forms.ModelForm):
@@ -13,7 +13,14 @@ class DeliveryForm(forms.ModelForm):
             'sum_payout': forms.NumberInput(attrs={'class': 'form-control'})
         }
 
-class FeedbackForm(forms.Form):
-    client_name = forms.CharField(max_length=100)
-    feedback = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4}))
-    rating= forms.IntegerField(min_value=1, max_value=5)
+
+# class FeedbackForm(forms.Form):
+#     client_name = forms.CharField(max_length=100)
+#     feedback = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4}))
+#     rating= forms.IntegerField(min_value=1, max_value=5)
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = '__all__'
