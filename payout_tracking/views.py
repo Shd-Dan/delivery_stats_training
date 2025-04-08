@@ -2,6 +2,7 @@
 from django.db.models.aggregates import Avg, Max, Min, Sum, Count, Value
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import TemplateView
 
 from .forms import DeliveryForm, FeedbackForm
 from .models import Delivery, Courier, Feedback
@@ -94,3 +95,17 @@ def update_feedback(request, feedback_id):
         form = FeedbackForm(instance=feed)
     return render(request, 'payout_tracking/feedback.html', context={'form': form})
 
+
+class DoneView(View):
+    def get(self, request):
+        return render(request, 'payout_tracking/done.html')
+
+
+class ListFeedback(TemplateView):
+    template_name = 'payout_tracking/list_feedback.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = Feedback.objects.all()
+
+        return context
