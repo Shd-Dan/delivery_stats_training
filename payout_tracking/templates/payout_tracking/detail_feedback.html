@@ -1,9 +1,29 @@
-{% extends 'payout_tracking/layout.html'  %}
+{% extends 'payout_tracking/layout.html' %}
 
 {% block title %}
+    Feedback Details
 {% endblock %}
 
 {% block body %}
-    
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white rounded-top-4">
+            <h3 class="mb-0">📝 Feedback from {{ feedback.name }}</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title text-muted">Rating</h5>
+            <p class="fs-4 mb-4">
+                ⭐ {{ feedback.rating }} / 5
+            </p>
 
+            <h5 class="card-title text-muted">Feedback</h5>
+            <p class="card-text fs-5">
+                "{{ feedback.feedback }}"
+            </p>
+        </div>
+        <div class="card-footer text-end bg-light rounded-bottom-4">
+            <a href="{% url 'feedbacks_list' %}" class="btn btn-outline-primary">← Back to All Feedback</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

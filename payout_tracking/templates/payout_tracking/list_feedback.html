@@ -14,9 +14,9 @@ List of the Feedbacks
 <div class="feedback-list-container">
     <h3 class="feedback-list-title">Feedbacks List</h3>
     <div class="feedback-items">
-        {% for feedback in feedback_list %}
+        {% for feedback in object_list %}
         <div class="feedback-item">
-            <p><strong>Feedback ID: </strong> <a href="{% url 'update_feedback' feedback_id=feedback.id %}">{{ feedback.id }}</a></p>
+            <p><strong>Feedback ID: </strong> <a href="{% url 'detail_feedback' id_feedback=feedback.id %}">{{ feedback.id }}</a></p>
         </div>
         {% empty %}
             <p>No feedback available.</p>

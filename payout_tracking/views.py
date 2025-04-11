@@ -3,6 +3,7 @@ from django.db.models.aggregates import Avg, Max, Min, Sum, Count, Value
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import TemplateView
+from django.views.generic import ListView, DetailView
 
 from .forms import DeliveryForm, FeedbackForm
 from .models import Delivery, Courier, Feedback
@@ -101,11 +102,35 @@ class DoneView(View):
         return render(request, 'payout_tracking/done.html')
 
 
-class ListFeedback(TemplateView):
+# class ListFeedback(TemplateView):
+#     template_name = 'payout_tracking/list_feedback.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['feedback_list'] = Feedback.objects.all()
+#
+#         return context
+
+
+class ListFeedback(ListView):
+    """ Gets list of feedbacks item by ListView """""
     template_name = 'payout_tracking/list_feedback.html'
+    model = Feedback
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['feedback_list'] = Feedback.objects.all()
 
-        return context
+
+# class DetailFeedback(TemplateView):
+#     """ Detail view for a specific feedback item by TemplateView "" """
+#     template_name = 'payout_tracking/detail_feedback.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         feedback_id = self.kwargs.get('id_feedback')
+#         context['feedback'] = Feedback.objects.get(id=feedback_id)
+#         return context
+
+
+class DetailFeedback(DetailView):
+    """ Detail view for a specific feedback item by DetailView class"" """""
+    template_name = 'payout_tracking/detail_feedback.html'
+    model = Feedback
