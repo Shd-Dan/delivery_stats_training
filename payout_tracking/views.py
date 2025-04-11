@@ -17,7 +17,7 @@ class FeedbackView(View):
         form = FeedbackForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'payout_tracking/feedback.html', {'form': form})
+            return render(request, 'payout_tracking/done.html', {'form': form})
         return render(request, 'payout_tracking/feedback.html', {'form': form})
 
 
@@ -106,6 +106,6 @@ class ListFeedback(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context = Feedback.objects.all()
+        context['feedback_list'] = Feedback.objects.all()
 
         return context

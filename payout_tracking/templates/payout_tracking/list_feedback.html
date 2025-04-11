@@ -1,0 +1,27 @@
+{% extends 'payout_tracking/layout.html' %}
+{% load static %}
+
+
+{% block title%}
+List of the Feedbacks
+{% endblock %}
+
+{% block extra_head%}
+<link rel="stylesheet" href="{% static 'payout_tracking/css/feedback_list.css' %}">
+{% endblock  %}
+
+{% block body%}
+<div class="feedback-list-container">
+    <h3 class="feedback-list-title">Feedbacks List</h3>
+    <div class="feedback-items">
+        {% for feedback in feedback_list %}
+        <div class="feedback-item">
+            <p><strong>Feedback ID: </strong> <a href="{% url 'update_feedback' feedback_id=feedback.id %}">{{ feedback.id }}</a></p>
+        </div>
+        {% empty %}
+            <p>No feedback available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

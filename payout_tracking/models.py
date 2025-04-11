@@ -11,7 +11,6 @@ class Feedback(models.Model):
     rating = models.PositiveIntegerField()
 
 
-
 class BagColor(models.Model):
     bag_color = models.CharField(max_length=20)
     bag_number = models.IntegerField()
@@ -19,12 +18,14 @@ class BagColor(models.Model):
     def __str__(self):
         return f"{self.bag_color} - {self.bag_number}"
 
+
 class Client(models.Model):
     client_email = models.EmailField(blank=True)
     client_name = models.CharField(max_length=100)
 
     def __str__(self):
         return f"{self.client_name} - {self.client_email}"
+
 
 # The class Courier is an illustration of many-to-many relationship
 class Courier(models.Model):
@@ -74,6 +75,3 @@ class Delivery(models.Model):
 
     def __str__(self):
         return f"Delivery {self.delivery_id} - {self.date} - {self.sum_payout}"
-
-
-
